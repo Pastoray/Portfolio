@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# My Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my portfolio! This repository showcases my projects, skills, and how to get in touch with me.
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In the about section, you'll find information about me, my background, and what drives my passion for technology and innovation.
 
-## Expanding the ESLint configuration
+## Skills
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The skills section highlights my areas of expertise, including programming languages, frameworks, tools, and any other relevant skills.
 
-- Configure the top-level `parserOptions` property like this:
+## Projects
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Explore my projects section to see some of the exciting work I've been involved in. From sleek web designs to efficient algorithms, my projects demonstrate a blend of creativity and functionality.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Contact
+
+Feel free to reach out to me if you have any questions, collaboration opportunities, or just want to say hello! You can find my contact information below.
+
+- Email: [ridhaaraar@gmail.com](mailto:ridhaaraar@gmail.com)
+- LinkedIn: [Ridha Aarar](https://www.linkedin.com/in/ridhaaraar/)
+- GitHub: [Pastoray](https://github.com/Pastoray)
