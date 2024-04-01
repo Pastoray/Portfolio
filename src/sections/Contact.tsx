@@ -56,7 +56,7 @@ function Contact() {
                 <button className="h-12 w-28 text-white mt-8 bg-rose-600 shadow-lg shadow-rose-600 rounded-md font-mono flex justify-center items-center hover:scale-105 active:scale-95 transition-all duration-300"
                     onClick={CopyEmail}>
                     <FontAwesomeIcon icon={faBrain} />
-                    <p className='pl-2'>Gmail</p>
+                    <p className='pl-2'>Email</p>
                 </button>
                 <div className={`w-22 mt-6 ${emailCopied ? '' : 'opacity-0 scale-0'} transition-all duration-300`}>
                     <div className="bg-emerald-600 p-4 rounded-lg relative">
