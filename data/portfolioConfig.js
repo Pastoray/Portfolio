@@ -25,7 +25,7 @@ export const profile = {
   bio: "I specialize in systems programming, robust backend engineering, and distributed infrastructure design. My core focus lies in engineering fault-tolerant pipelines, optimizing network performance, and writing clean, concurrent code for high-performance architectures. I am currently looking for an engineering role where I can design, build, and scale reliable, high-bandwidth systems primitives.",
   heroWords: ["Designing", "Building", "Shipping"], // typed and backspaced in the hero; 0 words hides it
   location: "Khenchela, Algeria",
-  timezone: "Africa/Algiers", // any IANA zone, e.g. "Europe/Paris" – drives the live clock
+  timezone: "Africa/Algiers",
   avatarUrl: null, // e.g. "/avatar.jpg" or a Supabase Storage URL
   availability: "Open to new opportunities", // e.g. "Open to new opportunities"
   languages: ["English", "Arabic"],
@@ -34,7 +34,7 @@ export const profile = {
   socials: [
     // type must be one of: github | linkedin | email | twitter | website
     { type: "github", label: "GitHub", url: "https://github.com/Pastoray" },
-    { type: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/ridha-araar/" },
+    { type: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/reda-araar/" },
     { type: "email", label: "Email", url: "mailto:ridhaaraar@gmail.com" },
   ],
 };
