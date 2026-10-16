@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") // Supabase: non-pooled connection used for migrations
+}
+
+enum ExperienceType {
+  WORK
+  EDUCATION
+}
+
+/// One row only – the site reads the most recently updated row.
+model ProfileInfo {
+  id           String   @id @default(cuid())
+  fullName     String
+  headline     String
+  intro        Json     @default("{}") // { prefix, emphasis, suffix }
+  bio          String
+  heroWords    String[] @default([])
+  location     String?
+  timezone     String   @default("UTC")
+  avatarUrl    String?
+  availability String?
+  languages    String[] @default([])
+  email        String?
+  resumeUrl    String?
+  socials      Json     @default("[]") // [{ type, label, url }]
+  updatedAt    DateTime @updatedAt
+
+  @@map("profile_info")
+}
+
+/// Work history AND education share one table, split by `type`.
+model Experience {
+  id           String         @id @default(cuid())
+  seedKey      String?        @unique // stable id used by the seed script
+  type         ExperienceType
+  title        String
+  organization String
+  location     String?
+  description  String?
+  highlights   String[]       @default([])
+  technologies String[]       @default([])
+  startDate    DateTime       @db.Date
+  endDate      DateTime?      @db.Date // null = present
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  // Newest-first listing per type is a single index scan.
+  @@index([type, startDate(sort: Desc)])
+  @@map("experiences")
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  summary      String
+  description  String?
+  imageUrl     String?
+  liveUrl      String?
+  repoUrl      String?
+  technologies String[] @default([])
+  featured     Boolean  @default(false)
+  visible      Boolean  @default(true)
+  publishedAt  DateTime @default(now()) @db.Date
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([visible, publishedAt(sort: Desc)])
+  @@index([featured, publishedAt(sort: Desc)])
+  @@map("projects")
+}
+
+model Skill {
+  id        String  @id @default(cuid())
+  name      String  @unique
+  category  String  @default("General")
+  iconSlug  String? // simpleicons.org slug
+  level     Int? // optional 1-100
+  sortOrder Int     @default(0)
+  visible   Boolean @default(true)
+
+  @@index([visible, sortOrder])
+  @@index([category, sortOrder])
+  @@map("skills")
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([read, createdAt(sort: Desc)])
+  @@map("messages")
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   @default("") // paragraphs separated by blank lines
+  coverUrl    String?
+  tags        String[] @default([])
+  visible     Boolean  @default(true)
+  publishedAt DateTime @default(now()) @db.Date
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([visible, publishedAt(sort: Desc)])
+  @@map("posts")
+}
+
+model GalleryItem {
+  id        String   @id @default(cuid())
+  seedKey   String?  @unique
+  title     String?
+  caption   String?
+  imageUrl  String
+  visible   Boolean  @default(true)
+  takenAt   DateTime @default(now()) @db.Date
+  createdAt DateTime @default(now())
+
+  @@index([visible, takenAt(sort: Desc)])
+  @@map("gallery_items")
+}

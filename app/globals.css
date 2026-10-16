@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+  ::selection {
+    @apply bg-sky-400/30;
+  }
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@layer components {
+  /* Frosted glass surfaces */
+  .glass {
+    @apply border border-slate-900/10 bg-white/50 shadow-[0_8px_32px_rgba(15,23,42,0.06)] backdrop-blur-md
+      dark:border-white/10 dark:bg-slate-900/40 dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)];
+  }
+  .glass-hover {
+    @apply relative isolate transition duration-300 hover:-translate-y-0.5 hover:border-slate-900/20 hover:bg-white/70
+      dark:hover:border-white/20 dark:hover:bg-slate-900/60;
+  }
+  /* Cursor-following spotlight (--mx/--my are set by SpotlightProvider) */
+  .glass-hover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(56, 189, 248, 0.16), transparent 45%);
+  }
+  .glass-hover:hover::before {
+    opacity: 1;
+  }
+  .badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-slate-900/10 bg-white/40 px-3 py-1.5 text-sm
+      font-medium backdrop-blur-md dark:border-white/10 dark:bg-white/10;
+  }
+  .chip {
+    @apply rounded-full border border-slate-900/10 bg-white/40 px-2.5 py-0.5 text-xs text-slate-600
+      dark:border-white/10 dark:bg-white/5 dark:text-slate-300;
+  }
+  .section-title {
+    @apply text-3xl font-semibold tracking-tight sm:text-4xl;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-slate-900 text-white hover:-translate-y-0.5 hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200;
+  }
+  .btn-glass {
+    @apply btn glass hover:-translate-y-0.5 hover:bg-white/70 dark:hover:bg-slate-900/60;
+  }
+  .field {
+    @apply w-full rounded-xl border border-slate-900/10 bg-white/50 px-4 py-3 text-sm outline-none backdrop-blur-md
+      transition placeholder:text-slate-400 focus:border-slate-900/30 focus:ring-2 focus:ring-sky-400/30
+      dark:border-white/10 dark:bg-white/5 dark:focus:border-white/30;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 bg-clip-text text-transparent;
+  }
+}
+
+/* Ambient background: dotted grid, softly faded toward the edges */
+.bg-ambient {
+  background-image: radial-gradient(rgba(100, 116, 139, 0.2) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.dark .bg-ambient {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+}
+
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Scroll reveal (only hidden when JS is present, so no-JS visitors still see everything) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
