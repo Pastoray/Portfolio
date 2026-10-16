@@ -12,11 +12,29 @@ export default function ContactForm() {
     const form = e.currentTarget;
     setStatus("sending");
     setError("");
+
+    const formData = new FormData(form);
+
+    // Bot honeypot check
+    if (formData.get("website")) {
+      setStatus("sent");
+      form.reset();
+      return;
+    }
+
+    const payload = {
+      access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+      name: formData.get("name"),
+      email: formData.get("email"),
+      subject: formData.get("subject") || "Portfolio Contact",
+      message: formData.get("body"),
+    };
+
     try {
-      const res = await fetch("/api/messages", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "Something went wrong.");
       form.reset();
