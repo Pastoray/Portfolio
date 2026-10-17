@@ -50,12 +50,12 @@ export default async function ProjectPage({ params }) {
         )}
       </div>
 
-      <div className="glass mt-10 aspect-[16/9] overflow-hidden rounded-2xl bg-gradient-to-br from-sky-400/25 via-indigo-400/20 to-fuchsia-400/25">
-        {imageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
+      {imageUrl && (
+        <div className="glass mt-10 aspect-[16/9] overflow-hidden rounded-2xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={imageUrl} alt={title} className="h-full w-full object-cover" />
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="mt-10 space-y-5 text-lg leading-relaxed">
         {paragraphs(description).map((p, i) => (

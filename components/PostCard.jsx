@@ -12,12 +12,12 @@ export default function PostCard({ post, index = 0, variant = "card" }) {
   return (
     <Reveal delay={Math.min(index, 6) * 70} className={`h-full ${feature ? "md:col-span-2 lg:col-span-3" : ""}`}>
       <article className={`glass glass-hover group relative flex h-full overflow-hidden rounded-2xl ${feature ? "flex-col md:flex-row" : "flex-col"}`}>
-        <div className={`relative overflow-hidden bg-gradient-to-br from-indigo-400/25 via-sky-400/20 to-fuchsia-400/25 ${feature ? "aspect-[16/10] md:w-1/2" : "aspect-[16/9]"}`}>
-          {coverUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
+        {coverUrl && (
+          <div className={`relative overflow-hidden ${feature ? "aspect-[16/10] md:w-1/2" : "aspect-[16/9]"}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={coverUrl} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
-          )}
-        </div>
+          </div>
+        )}
         <div className={`flex flex-1 flex-col justify-center p-5 ${feature ? "md:p-10" : ""}`}>
           <p className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
             {formatMonth(publishedAt)}
