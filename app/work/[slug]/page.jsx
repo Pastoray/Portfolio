@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { getPortfolioData } from "@/lib/data";
 import { asArray, formatMonth } from "@/lib/format";
-import { paragraphs } from "@/lib/text";
+import RichText from "@/components/RichText";
 
 export const revalidate = 60;
 
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }) {
 export default async function ProjectPage({ params }) {
   const project = await find(params);
   if (!project) notFound();
-  const { title, summary, description, imageUrl, liveUrl, repoUrl, technologies, publishedAt } = project;
+  const { title, summary, description, body, imageUrl, liveUrl, repoUrl, technologies, publishedAt } = project;
 
   return (
     <article className="mx-auto w-full max-w-4xl px-5 pb-16 pt-36 sm:px-8 sm:pt-44">
@@ -58,9 +58,7 @@ export default async function ProjectPage({ params }) {
       )}
 
       <div className="mt-10 space-y-5 text-lg leading-relaxed">
-        {paragraphs(description).map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
+        <RichText value={body} fallback={description} />
       </div>
 
       {asArray(technologies).length > 0 && (

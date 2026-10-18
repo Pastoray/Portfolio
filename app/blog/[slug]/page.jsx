@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getPortfolioData } from "@/lib/data";
 import { asArray, formatMonth } from "@/lib/format";
-import { paragraphs, readingTime } from "@/lib/text";
+import { readingTime } from "@/lib/text";
+import RichText from "@/components/RichText";
 
 export const revalidate = 60;
 
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
 export default async function PostPage({ params }) {
   const post = await find(params);
   if (!post) notFound();
-  const { title, excerpt, content, coverUrl, tags, publishedAt } = post;
+  const { title, excerpt, content, body, coverUrl, tags, publishedAt } = post;
   const minutes = readingTime(content);
 
   return (
@@ -49,9 +50,7 @@ export default async function PostPage({ params }) {
       )}
 
       <div className="mt-10 space-y-6 text-lg leading-relaxed">
-        {paragraphs(content).map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
+        <RichText value={body} fallback={content} />
       </div>
 
       {asArray(tags).length > 0 && (
